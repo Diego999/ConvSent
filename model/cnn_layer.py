@@ -4,7 +4,7 @@ import theano
 import theano.tensor as tensor
 import theano.tensor.shared_randomstreams
 from utils import _p
-from theano.tensor.nnet import conv
+from theano.tensor.nnet import conv2d
 from theano.tensor.signal import pool
 
 rng = np.random.RandomState(3435)
@@ -37,7 +37,7 @@ def encoder(tparams, layer0_input, filter_shape, pool_size,
         image_shape: (batch_size, num input feature maps, image height, image width)
     """
     
-    conv_out = conv.conv2d(input=layer0_input, filters=tparams[_p(prefix,'W')], 
+    conv_out = conv2d(input=layer0_input, filters=tparams[_p(prefix,'W')], 
                             filter_shape=filter_shape)
     
     conv_out_tanh = tensor.tanh(conv_out + tparams[_p(prefix,'b')].dimshuffle('x', 0, 'x', 'x'))
